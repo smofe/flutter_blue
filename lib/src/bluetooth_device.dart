@@ -151,21 +151,13 @@ class BluetoothDevice {
   }
 
   /// Request connectionpriority for a connected remote device
-  Future<void> connectionPriority() async {
-    final remoteId = id.toString();
-    return await FlutterBlue.instance._channel
-        .invokeMethod('requestConnectionPriority', remoteId);
+  Future<void> connectionPriority({required int priority}) async {
+    var request = protos.ConnectionPriorityRequest.create()
+      ..deviceId = id.toString()
+      ..priority = priority;
 
-    // return FlutterBlue.instance._methodStream
-    //     .where((m) => m.method == "ReadRssiResult")
-    //     .map((m) => m.arguments)
-    //     .map((buffer) => protos.ReadRssiResult.fromBuffer(buffer))
-    //     .where((p) =>
-    // (p.remoteId == remoteId))
-    //     .first
-    //     .then((c) {
-    //   return (c.rssi);
-    // });
+    await FlutterBlue.instance._channel
+        .invokeMethod('requestConnectionPriority', request.writeToBuffer());
   }
 
   /// Indicates whether the Bluetooth Device can send a write without response

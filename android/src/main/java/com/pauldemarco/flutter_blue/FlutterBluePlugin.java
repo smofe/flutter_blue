@@ -629,13 +629,22 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
 
             case "requestConnectionPriority":
             {
-                String remoteId = (String)call.arguments;
-                BluetoothGatt gatt;
+
+                byte[] data = call.arguments();
+                Protos.ConnectionPriorityRequest request;
                 try {
-                    gatt = locateGatt(remoteId);
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && gatt != null) {
-                        if(gatt.requestConnectionPriority(1.toByteArray())) {
-                            log(LogLevel.EMERGENCY, "[onReliableWriteCompleted] status: HIGH PRIORITY ALREADY");
+                    request = Protos.ConnectionPriorityRequest.newBuilder().mergeFrom(data).build();
+                } catch (InvalidProtocolBufferException e) {
+                    result.error("RuntimeException", e.getMessage(), e);
+                    break;
+                }
+                
+                try {
+                    gatt = locateGatt(request.getDeviceId());
+                    priority = request.getPriority().toByteArray();
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        if(gatt.requestConnectionPriority(priority)) {
+                           
                             result.success(null);
                         } else {
                             result.error("requestConnectionPriority", "gatt.requestConnectionPriority returned false", null);
@@ -644,6 +653,7 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
                         result.error("requestConnectionPriority", "Only supported on devices >= API 21 (Lollipop). This device == " + Build.VERSION.SDK_INT, null);
                     }
                 } catch(Exception e) {
+                    log(LogLevel.EMERGENCY, "[onReliableWriteCompleted] status: HIGH PRIORITY ALREADY");
                     result.error("requestMtu", e.getMessage(), e);
                 }
 
