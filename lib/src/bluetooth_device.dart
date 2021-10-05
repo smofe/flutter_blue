@@ -153,7 +153,7 @@ class BluetoothDevice {
   /// Request connectionpriority for a connected remote device
   Future<void> connectionPriority() async {
     final remoteId = id.toString();
-    await FlutterBlue.instance._channel
+    return await FlutterBlue.instance._channel
         .invokeMethod('requestConnectionPriority', remoteId);
 
     // return FlutterBlue.instance._methodStream
