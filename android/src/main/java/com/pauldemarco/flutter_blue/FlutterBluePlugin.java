@@ -1009,6 +1009,11 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
         }
 
         @Override
+        public void onConnectionPriority(BluetoothGatt gatt,int status) {
+            log(LogLevel.DEBUG, "[onConnectionPriority] status: "+ status);
+        }
+
+        @Override
         public void onMtuChanged(BluetoothGatt gatt, int mtu, int status) {
             log(LogLevel.DEBUG, "[onMtuChanged] mtu: " + mtu + " status: " + status);
             if(status == BluetoothGatt.GATT_SUCCESS) {
