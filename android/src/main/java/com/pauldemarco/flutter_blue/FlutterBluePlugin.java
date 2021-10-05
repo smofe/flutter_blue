@@ -635,7 +635,7 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
                     gatt = locateGatt(remoteId);
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && gatt != null) {
                         if(gatt.requestConnectionPriority(1.toByteArray())) {
-                            log(LogLevel.DEBUG, "[onReliableWriteCompleted] status: HIGH PRIORITY ALREADY");
+                            log(LogLevel.EMERGENCY, "[onReliableWriteCompleted] status: HIGH PRIORITY ALREADY");
                             result.success(null);
                         } else {
                             result.error("requestConnectionPriority", "gatt.requestConnectionPriority returned false", null);
