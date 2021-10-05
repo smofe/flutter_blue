@@ -7,7 +7,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:flutter_blue_example/widgets.dart';
+
+import 'widgets.dart';
 
 void main() {
   runApp(FlutterBlueApp());
@@ -54,7 +55,7 @@ class BluetoothOffScreen extends StatelessWidget {
               'Bluetooth Adapter is ${state != null ? state.toString().substring(15) : 'not available'}.',
               style: Theme.of(context)
                   .primaryTextTheme
-                  .subhead
+                  .subtitle1
                   ?.copyWith(color: Colors.white),
             ),
           ],
@@ -112,7 +113,7 @@ class FindDevicesScreen extends StatelessWidget {
                 initialData: [],
                 builder: (c, snapshot) => Column(
                   children: snapshot.data!
-                      .map(
+                      .map<Widget>(
                         (r) => ScanResultTile(
                           result: r,
                           onTap: () => Navigator.of(context)
@@ -168,7 +169,7 @@ class DeviceScreen extends StatelessWidget {
 
   List<Widget> _buildServiceTiles(List<BluetoothService> services) {
     return services
-        .map(
+        .map<Widget>(
           (s) => ServiceTile(
             service: s,
             characteristicTiles: s.characteristics
