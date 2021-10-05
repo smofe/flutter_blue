@@ -634,7 +634,7 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
                 try {
                     gatt = locateGatt(remoteId);
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && gatt != null) {
-                        if(gatt.requestConnectionPriority(1)) {
+                        if(gatt.requestConnectionPriority(1.toByteArray())) {
                             result.success(null);
                         } else {
                             result.error("requestConnectionPriority", "gatt.requestConnectionPriority returned false", null);
