@@ -426,3 +426,14 @@ const ReadRssiResult$json = const {
 
 /// Descriptor for `ReadRssiResult`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List readRssiResultDescriptor = $convert.base64Decode('Cg5SZWFkUnNzaVJlc3VsdBIbCglyZW1vdGVfaWQYASABKAlSCHJlbW90ZUlkEhIKBHJzc2kYAiABKAVSBHJzc2k=');
+@$core.Deprecated('Use connectionPriorityRequestDescriptor instead')
+const ConnectionPriorityRequest$json = const {
+  '1': 'ConnectionPriorityRequest',
+  '2': const [
+    const {'1': 'deviceId', '3': 1, '4': 1, '5': 9, '10': 'deviceId'},
+    const {'1': 'priority', '3': 2, '4': 1, '5': 5, '10': 'priority'},
+  ],
+};
+
+/// Descriptor for `ConnectionPriorityRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List connectionPriorityRequestDescriptor = $convert.base64Decode('ChlDb25uZWN0aW9uUHJpb3JpdHlSZXF1ZXN0EhoKCGRldmljZUlkGAEgASgJUghkZXZpY2VJZBIaCghwcmlvcml0eRgCIAEoBVIIcHJpb3JpdHk=');

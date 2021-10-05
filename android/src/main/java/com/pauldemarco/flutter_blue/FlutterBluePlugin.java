@@ -627,6 +627,24 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
                 break;
             }
 
+            case "requestConnectionPriority":
+            {
+                String remoteId = (String)call.arguments;
+                BluetoothGatt gatt;
+                try {
+                    gatt = locateGatt(remoteId);
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && gatt != null) {
+                        gatt.requestConnectionPriority(BluetoothGatt.CONNECTION_PRIORITY_HIGH);
+                    } else {
+                        result.error("requestConnectionPriority", "Only supported on devices >= API 21 (Lollipop). This device == " + Build.VERSION.SDK_INT, null);
+                    }
+                } catch(Exception e) {
+                    result.error("requestMtu", e.getMessage(), e);
+                }
+
+                break;
+            }
+
             case "readRssi":
             {
                 String remoteId = (String)call.arguments;
