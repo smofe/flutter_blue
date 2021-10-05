@@ -629,6 +629,7 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
 
             case "requestConnectionPriority":
             {
+                log(LogLevel.EMERGENCY, "[onReliableWriteCompleted] status: START");
 
                 byte[] data = call.arguments();
                 Protos.ConnectionPriorityRequest request;
