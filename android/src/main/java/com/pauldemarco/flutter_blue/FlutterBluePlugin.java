@@ -640,6 +640,7 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
                     break;
                 }
                 
+                BluetoothGatt gatt;
                 try {
                     gatt = locateGatt(request.getDeviceId());
                     priority = request.getPriority().toByteArray();
