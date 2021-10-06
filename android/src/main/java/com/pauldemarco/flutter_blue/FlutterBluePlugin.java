@@ -631,18 +631,11 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
             {
                 log(LogLevel.EMERGENCY, "[onReliableWriteCompleted] status: START");
 
-                byte[] data = call.arguments();
-                Protos.ConnectionPriorityRequest request;
-                try {
-                    request = Protos.ConnectionPriorityRequest.newBuilder().mergeFrom(data).build();
-                } catch (InvalidProtocolBufferException e) {
-                    result.error("RuntimeException", e.getMessage(), e);
-                    break;
-                }
-
+                String remoteId = (String)call.arguments;
                 BluetoothGatt gatt;
+
                 try {
-                    gatt = locateGatt(request.getDeviceId());
+                    gatt = locateGatt(remoteId);
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         if(gatt.requestConnectionPriority(1.toByteArray())) {
                            
