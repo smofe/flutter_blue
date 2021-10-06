@@ -639,13 +639,12 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
                     result.error("RuntimeException", e.getMessage(), e);
                     break;
                 }
-                
+
                 BluetoothGatt gatt;
                 try {
                     gatt = locateGatt(request.getDeviceId());
-                    priority = request.getPriority().toByteArray();
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        if(gatt.requestConnectionPriority(priority)) {
+                        if(gatt.requestConnectionPriority(1.toByteArray())) {
                            
                             result.success(null);
                         } else {
