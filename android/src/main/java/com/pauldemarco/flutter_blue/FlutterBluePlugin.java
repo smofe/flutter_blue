@@ -649,7 +649,7 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
             {
                 log(LogLevel.DEBUG, "[requestConnectionPriority] 1");
                 byte[] data = call.arguments();
-                Protos.MtuSizeRequest request;
+                Protos.ConnectionPriorityRequest request;
                 try {
                     request = Protos.ConnectionPriorityRequest.newBuilder().mergeFrom(data).build();
                     log(LogLevel.DEBUG, "[requestConnectionPriority] 2");
