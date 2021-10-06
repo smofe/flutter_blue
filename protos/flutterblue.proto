@@ -217,3 +217,8 @@ message ReadRssiResult {
   string remote_id = 1;
   int32 rssi = 2;
 } 
+
+message ConnectionPriorityRequest {
+  string remote_id = 1;
+  uint32 priority = 2;
+}
