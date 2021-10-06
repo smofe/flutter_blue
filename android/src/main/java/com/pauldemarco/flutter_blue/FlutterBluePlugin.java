@@ -645,6 +645,41 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
                 break;
             }
 
+            case "requestConnectionPriority":
+            {
+                log(LogLevel.DEBUG, "[requestConnectionPriority] 1");
+                byte[] data = call.arguments();
+                Protos.MtuSizeRequest request;
+                try {
+                    request = Protos.ConnectionPriorityRequest.newBuilder().mergeFrom(data).build();
+                    log(LogLevel.DEBUG, "[requestConnectionPriority] 2");
+                } catch (InvalidProtocolBufferException e) {
+                    result.error("RuntimeException", e.getMessage(), e);
+                    break;
+                }
+
+                BluetoothGatt gatt;
+                try {
+                    log(LogLevel.DEBUG, "[requestConnectionPriority] 3");
+                    gatt = locateGatt(request.getRemoteId());
+                    int priority = request.getPriority();
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        if(gatt.requestConnectionPriority(priority)) {
+                            log(LogLevel.DEBUG, "[requestConnectionPriority] 4");
+                            result.success(null);
+                        } else {
+                            result.error("requestConnectionPriority", "gatt.requestConnectionPriority returned false", null);
+                        }
+                    } else {
+                        result.error("requestConnectionPriority", "Only supported on devices >= API 21 (Lollipop). This device == " + Build.VERSION.SDK_INT, null);
+                    }
+                } catch(Exception e) {
+                    result.error("requestConnectionPriority", e.getMessage(), e);
+                }
+
+                break;
+            }
+
             default:
             {
                 result.notImplemented();

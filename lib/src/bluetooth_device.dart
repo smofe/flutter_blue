@@ -132,6 +132,16 @@ class BluetoothDevice {
         .invokeMethod('requestMtu', request.writeToBuffer());
   }
 
+   /// Request connectionpriority for a connected remote device
+  Future<void> connectionPriority({required int priority}) async {
+    var request = protos.ConnectionPriorityRequest.create()
+      ..remoteId = id.toString()
+      ..priority = priority;
+
+    return FlutterBlue.instance._channel
+        .invokeMethod('requestConnectionPriority', request.writeToBuffer());
+  }
+
  /// Read the RSSI for a connected remote device
   Future<int> readRssi() async {
     final remoteId = id.toString();
