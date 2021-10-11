@@ -169,7 +169,7 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
         synchronized (initializationLock) {
             // Log.i(TAG, "setup");
             Log.d(TAG, "setup");
-            this.activity = activity;
+            // this.activity = activity;
             this.application = application;
             this.context = application;
             channel = new MethodChannel(messenger, NAMESPACE + "/methods");
