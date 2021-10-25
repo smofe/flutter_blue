@@ -2186,3 +2186,64 @@ class MtuSizeResponse extends $pb.GeneratedMessage {
   void clearMtu() => clearField(2);
 }
 
+class ConnectionPriorityRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ConnectionPriorityRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'remoteId')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'priority', $pb.PbFieldType.OU3)
+    ..hasRequiredFields = false
+  ;
+
+  ConnectionPriorityRequest._() : super();
+  factory ConnectionPriorityRequest({
+    $core.String? remoteId,
+    $core.int? priority,
+  }) {
+    final _result = create();
+    if (remoteId != null) {
+      _result.remoteId = remoteId;
+    }
+    if (priority != null) {
+      _result.priority = priority;
+    }
+    return _result;
+  }
+  factory ConnectionPriorityRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ConnectionPriorityRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  ConnectionPriorityRequest clone() => ConnectionPriorityRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  ConnectionPriorityRequest copyWith(void Function(ConnectionPriorityRequest) updates) => super.copyWith((message) => updates(message as ConnectionPriorityRequest)) as ConnectionPriorityRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ConnectionPriorityRequest create() => ConnectionPriorityRequest._();
+  ConnectionPriorityRequest createEmptyInstance() => create();
+  static $pb.PbList<ConnectionPriorityRequest> createRepeated() => $pb.PbList<ConnectionPriorityRequest>();
+  @$core.pragma('dart2js:noInline')
+  static ConnectionPriorityRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ConnectionPriorityRequest>(create);
+  static ConnectionPriorityRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get remoteId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set remoteId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasRemoteId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRemoteId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get priority => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set priority($core.int v) { $_setUnsignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPriority() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPriority() => clearField(2);
+}
+

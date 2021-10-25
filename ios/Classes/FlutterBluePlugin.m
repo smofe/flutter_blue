@@ -253,6 +253,15 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
     }
   } else if([@"requestMtu" isEqualToString:call.method]) {
     result([FlutterError errorWithCode:@"requestMtu" message:@"iOS does not allow mtu requests to the peripheral" details:NULL]);
+  } else if([@"requestConnectionPriority" isEqualToString:call.method]) {
+    NSString *remoteId = [call arguments];
+    @try {
+      CBPeripheral *peripheral = [self findPeripheral:remoteId];
+      uint32_t priority = [self priority:peripheral];
+      result([self toFlutterData:[self setDesiredConnectionLatency:peripheral priority:priority]]);
+    } @catch(FlutterError *e) {
+      result(e);
+    }
   } else {
     result(FlutterMethodNotImplemented);
   }
@@ -537,6 +546,8 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
   [result setSuccess:(error == nil)];
   [_channel invokeMethod:@"WriteDescriptorResponse" arguments:[self toFlutterData:result]];
 }
+
+- (void)peripheral:(CBPeripheral *)peripheral CBPeripheralManagerConnectionLatency:()
 
 //
 // Proto Helper methods

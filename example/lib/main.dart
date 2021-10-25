@@ -54,7 +54,7 @@ class BluetoothOffScreen extends StatelessWidget {
               'Bluetooth Adapter is ${state != null ? state.toString().substring(15) : 'not available'}.',
               style: Theme.of(context)
                   .primaryTextTheme
-                  .subhead
+                  .subtitle1
                   ?.copyWith(color: Colors.white),
             ),
           ],
@@ -201,9 +201,50 @@ class DeviceScreen extends StatelessWidget {
         .toList();
   }
 
+  Future<void> _requestConnectionPriority({required int priority}) async {
+    await device.connectionPriority(priority: priority);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Connection priority'),
+            ),
+            ListTile(
+              title: const Text('Priority balanced'),
+              onTap: () async {
+                var priority = 0;
+                await _requestConnectionPriority(priority: priority);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Priority high'),
+              onTap: () async {
+                var priority = 1;
+                await _requestConnectionPriority(priority: priority);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Priority low power'),
+              onTap: () async {
+                var priority = 2;
+                await _requestConnectionPriority(priority: priority);
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text(device.name),
         actions: <Widget>[
