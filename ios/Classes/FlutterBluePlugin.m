@@ -263,16 +263,18 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
       result(e);
     }
   } else if([@"requestConnectionPriority" isEqualToString:call.method]) {
-    FlutterStandardTypedData *data = [call arguments];
-    ProtosConnectionPriorityRequest *request = [[ProtosConnectionPriorityRequest alloc] initWithData:[data data] error:nil];
-    NSString *remoteId = [request remoteId];
-      @try {
-      CBPeripheral *peripheral = [self findPeripheral:remoteId];
-      NSUInteger priority = 2;
-      result([self toFlutterData:[self setDesiredConnectionLatency:peripheral priority:priority]]);
-    } @catch(FlutterError *e) {
-      result(e);
-    } 
+        result([FlutterError errorWithCode:@"requestConnectionPriority" message:@"iOS does not allow connection priority requests to the peripheral" details:NULL]);
+
+    // FlutterStandardTypedData *data = [call arguments];
+    // ProtosConnectionPriorityRequest *request = [[ProtosConnectionPriorityRequest alloc] initWithData:[data data] error:nil];
+    // NSString *remoteId = [request remoteId];
+    //   @try {
+    //   CBPeripheral *peripheral = [self findPeripheral:remoteId];
+    //   NSUInteger priority = 2;
+    //   result([self toFlutterData:[self setDesiredConnectionLatency:peripheral priority:priority]]);
+    // } @catch(FlutterError *e) {
+    //   result(e);
+    // } 
 
   } else {
     result(FlutterMethodNotImplemented);
