@@ -262,6 +262,18 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
     } @catch(FlutterError *e) {
       result(e);
     }
+  } else if([@"requestConnectionPriority" isEqualToString:call.method]) {
+    FlutterStandardTypedData *data = [call arguments];
+    ProtosConnectionPriorityRequest *request = [[ProtosConnectionPriorityRequest alloc] initWithData:[data data] error:nil];
+    NSString *remoteId = [request remoteId];
+      @try {
+      CBPeripheral *peripheral = [self findPeripheral:remoteId];
+      NSUInteger priority = 2;
+      result([self toFlutterData:[self setDesiredConnectionLatency:peripheral priority:priority]]);
+    } @catch(FlutterError *e) {
+      result(e);
+    } 
+
   } else {
     result(FlutterMethodNotImplemented);
   }
@@ -553,6 +565,13 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
   [result setRssi:[rssi intValue]];
   [_channel invokeMethod:@"ReadRssiResult" arguments:[self toFlutterData:result]];
 }
+
+- (void)peripheral:(CBPeripheral *)peripheral setDesiredConnectionLatency:(NSNumber *)priority error:(NSError *)error {
+  ProtosConnectionPriorityRequest *result = [[ProtosConnectionPriorityRequest alloc] init];
+  [result setRemoteId:[peripheral.identifier UUIDString]];
+  [result setPriority:[priority intValue]];
+  [result setRequest:request];
+  [result setSuccess:(error == nil)];}
 
 //
 // Proto Helper methods

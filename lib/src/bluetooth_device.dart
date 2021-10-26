@@ -132,7 +132,7 @@ class BluetoothDevice {
         .invokeMethod('requestMtu', request.writeToBuffer());
   }
 
-   /// Request connectionpriority for a connected remote device
+   /// Request connection priority for a connected remote device
   Future<void> connectionPriority({required int priority}) async {
     var request = protos.ConnectionPriorityRequest.create()
       ..remoteId = id.toString()
