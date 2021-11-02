@@ -15,8 +15,8 @@ class BluetoothDescriptor {
   BehaviorSubject<List<int>> _value;
   Stream<List<int>> get value => _value.stream;
 
-  List<int> get lastValue => _value.value ?? [];
-
+  List<int> get lastValue => _value.value;
+  
   BluetoothDescriptor.fromProto(protos.BluetoothDescriptor p)
       : uuid = new Guid(p.uuid),
         deviceId = new DeviceIdentifier(p.remoteId),
