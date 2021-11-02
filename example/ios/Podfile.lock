@@ -7,8 +7,8 @@ PODS:
     - flutter_blue/Protos (= 0.0.1)
   - flutter_blue/Protos (0.0.1):
     - Flutter
-    - Protobuf (~> 3.19.1)
-  - Protobuf (3.19.1)
+    - Protobuf (~> 3.11.4)
+  - Protobuf (3.11.4)
 
 DEPENDENCIES:
   - e2e (from `.symlinks/plugins/e2e/ios`)
