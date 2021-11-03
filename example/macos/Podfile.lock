@@ -4,9 +4,9 @@ PODS:
     - FlutterMacOS
   - flutter_blue/Protos (0.0.1):
     - FlutterMacOS
-    - Protobuf (~> 3.19.1)
+    - Protobuf (~> 3.17.3)
   - FlutterMacOS (1.0.0)
-  - Protobuf (3.19.1)
+  - Protobuf (3.17.3)
 
 DEPENDENCIES:
   - flutter_blue (from `Flutter/ephemeral/.symlinks/plugins/flutter_blue/macos`)
