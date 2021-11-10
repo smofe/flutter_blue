@@ -19,29 +19,58 @@ class BluetoothDevice {
 
   /// Establishes a connection to the Bluetooth Device.
   Future<void> connect({
-    Duration? timeout,
+    Duration timeout,
     bool autoConnect = true,
   }) async {
+    Completer res = Completer();
     var request = protos.ConnectRequest.create()
       ..remoteId = id.toString()
       ..androidAutoConnect = autoConnect;
 
-    Timer? timer;
+    Timer timer;
     if (timeout != null) {
       timer = Timer(timeout, () {
         disconnect();
-        throw TimeoutException('Failed to connect in time.', timeout);
+        if(!res.isCompleted) {
+          res.completeError(TimeoutException('Failed to connect in time.', timeout));
+        }
       });
     }
 
-    await FlutterBlue.instance._channel
-        .invokeMethod('connect', request.writeToBuffer());
-
-    await state.firstWhere((s) => s == BluetoothDeviceState.connected);
-
-    timer?.cancel();
-
-    return;
+    FlutterBlue.instance._channel.invokeMethod('connect', request.writeToBuffer()).then((f) {
+      return state.firstWhere((s) {
+        var connected = s == BluetoothDeviceState.connected;
+          if(connected) {
+            timer?.cancel();
+            if(!res.isCompleted) {
+              res.complete();
+            }
+          }
+          return connected;
+        }, orElse: () {
+          // State stream died before timeout ?
+          if(!res.isCompleted) {
+            timer?.cancel();
+            disconnect();
+            res.completeError(Exception('state stream done without ever being connected'));
+          }
+          return BluetoothDeviceState.disconnected;
+      }).then((s) {
+        timer?.cancel();
+        if (s == BluetoothDeviceState.connected) {
+          if(!res.isCompleted) {
+            res.complete();
+          }
+        }
+      }).catchError((err) {
+        timer?.cancel();
+        disconnect();
+        if(!res.isCompleted) {
+          res.completeError(err);
+        }
+      });
+    });
+    return res.future;
   }
 
   /// Cancels connection to the Bluetooth Device
