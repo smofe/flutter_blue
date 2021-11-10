@@ -19,7 +19,7 @@ class BluetoothDevice {
 
   /// Establishes a connection to the Bluetooth Device.
   Future<void> connect({
-    Duration timeout,
+    Duration? timeout,
     bool autoConnect = true,
   }) async {
     Completer res = Completer();
@@ -27,7 +27,7 @@ class BluetoothDevice {
       ..remoteId = id.toString()
       ..androidAutoConnect = autoConnect;
 
-    Timer timer;
+    Timer? timer;
     if (timeout != null) {
       timer = Timer(timeout, () {
         disconnect();
