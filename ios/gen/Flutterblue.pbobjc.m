@@ -2269,6 +2269,62 @@ typedef struct ProtosReadRssiResult__storage_ {
 
 @end
 
+#pragma mark - ProtosConnectionPriorityRequest
+
+@implementation ProtosConnectionPriorityRequest
+
+@dynamic remoteId;
+@dynamic priority;
+
+typedef struct ProtosConnectionPriorityRequest__storage_ {
+  uint32_t _has_storage_[1];
+  uint32_t priority;
+  NSString *remoteId;
+} ProtosConnectionPriorityRequest__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "remoteId",
+        .dataTypeSpecific.clazz = Nil,
+        .number = ProtosConnectionPriorityRequest_FieldNumber_RemoteId,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(ProtosConnectionPriorityRequest__storage_, remoteId),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "priority",
+        .dataTypeSpecific.clazz = Nil,
+        .number = ProtosConnectionPriorityRequest_FieldNumber_Priority,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(ProtosConnectionPriorityRequest__storage_, priority),
+        .flags = (GPBFieldFlags)(GPBFieldOptional | GPBFieldClearHasIvarOnZero),
+        .dataType = GPBDataTypeUInt32,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[ProtosConnectionPriorityRequest class]
+                                     rootClass:[ProtosFlutterblueRoot class]
+                                          file:ProtosFlutterblueRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(ProtosConnectionPriorityRequest__storage_)
+                                         flags:(GPBDescriptorInitializationFlags)(GPBDescriptorInitializationFlag_UsesClassRefs | GPBDescriptorInitializationFlag_Proto3OptionalKnown)];
+    #if defined(DEBUG) && DEBUG
+      NSAssert(descriptor == nil, @"Startup recursed!");
+    #endif  // DEBUG
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
 
 #pragma clang diagnostic pop
 

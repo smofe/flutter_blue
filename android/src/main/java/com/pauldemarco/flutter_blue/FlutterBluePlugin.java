@@ -34,6 +34,9 @@ import android.os.Looper;
 import android.os.ParcelUuid;
 import android.util.Log;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -166,6 +169,10 @@ public class FlutterBluePlugin implements FlutterPlugin, MethodCallHandler, Requ
                 // V1 embedding setup for activity listeners.
                 registrar.addRequestPermissionsResultListener(this);
             }
+            //  else {
+            //     // V2 embedding setup for activity listeners.
+            //     activityBinding.addRequestPermissionsResultListener(this);
+            // }
         }
     }
 

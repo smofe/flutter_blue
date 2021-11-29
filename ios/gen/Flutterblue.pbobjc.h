@@ -792,6 +792,21 @@ GPB_FINAL @interface ProtosReadRssiResult : GPBMessage
 
 @end
 
+#pragma mark - ProtosConnectionPriorityRequest
+
+typedef GPB_ENUM(ProtosConnectionPriorityRequest_FieldNumber) {
+  ProtosConnectionPriorityRequest_FieldNumber_RemoteId = 1,
+  ProtosConnectionPriorityRequest_FieldNumber_Priority = 2,
+};
+
+GPB_FINAL @interface ProtosConnectionPriorityRequest : GPBMessage
+
+@property(nonatomic, readwrite, copy, null_resettable) NSString *remoteId;
+
+@property(nonatomic, readwrite) uint32_t priority;
+
+@end
+
 NS_ASSUME_NONNULL_END
 
 CF_EXTERN_C_END

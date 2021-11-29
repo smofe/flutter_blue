@@ -161,6 +161,34 @@ class BluetoothDevice {
         .invokeMethod('requestMtu', request.writeToBuffer());
   }
 
+   /// Request connection priority for a connected remote device
+  Future<void> connectionPriority({required int priority}) async {
+    var request = protos.ConnectionPriorityRequest.create()
+      ..remoteId = id.toString()
+      ..priority = priority;
+
+    return FlutterBlue.instance._channel
+        .invokeMethod('requestConnectionPriority', request.writeToBuffer());
+  }
+
+ /// Read the RSSI for a connected remote device
+  Future<int> readRssi() async {
+    final remoteId = id.toString();
+    await FlutterBlue.instance._channel
+        .invokeMethod('readRssi', remoteId);
+
+    return FlutterBlue.instance._methodStream
+        .where((m) => m.method == "ReadRssiResult")
+        .map((m) => m.arguments)
+        .map((buffer) => protos.ReadRssiResult.fromBuffer(buffer))
+        .where((p) =>
+    (p.remoteId == remoteId))
+        .first
+        .then((c) {
+      return (c.rssi);
+    });
+  }
+  
   /// Indicates whether the Bluetooth Device can send a write without response
   Future<bool> get canSendWriteWithoutResponse =>
       new Future.error(new UnimplementedError());
